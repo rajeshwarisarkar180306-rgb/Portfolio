@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJESHWARI SARKAR | Projects</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Rajeshwari</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html" class="terminal-text">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-content">
+        <h2 class="section-title">
+            <span id="page-typewriter"></span><span class="cursor">|</span>
+        </h2>
+        
+        <div class="project-grid">
+            <div class="card">
+                <div class="card-header">
+                    <span class="tag">Python</span>
+                    <span class="tag">gTTS</span>
+                </div>
+                <h3>Lingo Master</h3>
+                <p>A voice-to-voice translator application built using Python and Streamlit. It uses the Google Text-to-Speech library for real-time audio translation.</p>
+                <div class="project-links">
+                    <a href="#" class="repo-link"><i class="fab fa-github"></i> Source</a>
+                    <a href="#" class="repo-link"><i class="fas fa-play"></i> Demo</a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <span class="tag">Arduino</span>
+                    <span class="tag">C++</span>
+                </div>
+                <h3>Arduino Missile Launcher</h3>
+                <p>A hardware-focused project involving circuit design and motor control for precision movement using Arduino.</p>
+                <div class="project-links">
+                    <a href="VID20251106105423.mp4" class="repo-link"><i class="fas fa-microchip"></i> Schematic</a>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 50px;">
+            <a href="index.html" class="btn-primary">Return to Home</a>
+        </div>
+    </main>
+    <footer class="minimal-footer">
+        <p>&copy; 2026 RAJESHWARI SARKAR | B.Tech CSE</p>
+    </footer>
+    <script>
+    // Define what each page should say
+        const pageTitles = {
+            "index.html": "Hello, I'm RAJESHWARI SARKAR",
+            "about.html": "ABOUT ME...",
+            "projects.html": "FEATURED PROJECTS...",
+            "contact.html": "ping -c 4 connection_request"
+        };
+
+        // Determine current page filename
+        const path = window.location.pathname;
+        const page = path.split("/").pop() || "index.html";
+        const fullText = pageTitles[page] || "Loading...";
+
+        const typewriterElement = document.getElementById("page-typewriter") || document.getElementById("typewriter");
+        const cursor = document.querySelector(".cursor");
+        let i = 0;
+
+        function typeEffect() {
+            if (i < fullText.length) {
+                let char = fullText.charAt(i);
+                
+                // Terminal styling logic (green text for commands/names)
+                if (page === "index.html" && i >= 11) {
+                    if (i === 11) typewriterElement.innerHTML += '<span class="terminal-text">';
+                    typewriterElement.querySelector('.terminal-text').innerHTML += char;
+                } else if (page !== "index.html" && (char === "." || char === "/" || char === "-")) {
+                    typewriterElement.innerHTML += `<span class="terminal-text">${char}</span>`;
+                } else {
+                    typewriterElement.innerHTML += char;
+                }
+
+                i++;
+                setTimeout(typeEffect, Math.floor(Math.random() * 40) + 60);
+            } else {
+                setTimeout(() => { if(cursor) cursor.style.opacity = "0"; }, 1000);
+            }
+        }
+
+        window.onload = typeEffect;
+    </script>
+</body>
+</html>

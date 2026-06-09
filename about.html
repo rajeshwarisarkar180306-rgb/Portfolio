@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJESHWARI SARKAR | About</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Rajeshwari</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html" class="terminal-text">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-content">
+        <section class="bio-section">
+            <h2 class="section-title">
+                <span id="page-typewriter"></span><span class="cursor">|</span>
+            </h2>
+            <p class="bio-text">
+                I am a 2nd-semester B.Tech Computer Science student at Manav Rachna University. 
+                I bridge the gap between software and hardware, with a passion for Python development 
+                and physical computing using Arduino and Raspberry Pi.
+            </p>
+        </section>
+
+        <section id="skills">
+            <h2 class="section-title">
+                <span id="skills-typewriter"></span><span class="cursor">|</span>
+            </h2>
+            <div class="skill-grid">
+                <div class="skill-card">
+                    <i class="fab fa-python"></i>
+                    <h3>Languages</h3>
+                    <p>Python, C, C++, Java, JavaScript</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-microchip"></i>
+                    <h3>Hardware & IoT</h3>
+                    <p>Arduino, Raspberry Pi Zero, Embedded Systems</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-globe"></i>
+                    <h3>Web Technologies</h3>
+                    <p>HTML5, CSS3, Streamlit, Supabase</p>
+                </div>
+                <div class="skill-card">
+                    <i class="fas fa-leaf"></i>
+                    <h3>Interests</h3>
+                    <p>Sustainable Tech, Green Chemistry, Music (Flute/Tabla)</p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="minimal-footer">
+        <p>&copy; 2026 RAJESHWARI SARKAR | B.Tech CSE</p>
+    </footer>
+    <script>
+    // 1. Text configurations
+    const pageTitles = {
+        "index.html": "Hello, I'm RAJESHWARI SARKAR",
+        "about.html": "ABOUT ME...",
+        "projects.html": "FEATURED PROJECTS...",
+        "contact.html": "ping -c 4 connection_request"
+    };
+    const skillsText = "TECHNICAL STACK...";
+
+    // 2. Determine current page filename
+    const path = window.location.pathname;
+    const page = path.split("/").pop() || "index.html";
+    const fullText = pageTitles[page] || "Loading...";
+
+    // 3. Reusable Typing Function
+    function typeEffect(element, text, index, isMainTitle) {
+        if (index < text.length) {
+            let char = text.charAt(index);
+            const cursor = element.nextElementSibling;
+
+            // Apply terminal styling (green text)
+            if (isMainTitle && page === "index.html" && index >= 11) {
+                if (index === 11) element.innerHTML += '<span class="terminal-text">';
+                element.querySelector('.terminal-text').innerHTML += char;
+            } else if (char === "." || char === "/" || char === "-") {
+                element.innerHTML += `<span class="terminal-text">${char}</span>`;
+            } else {
+                element.innerHTML += char;
+            }
+
+            index++;
+            setTimeout(() => typeEffect(element, text, index, isMainTitle), Math.floor(Math.random() * 40) + 60);
+        } else {
+            // Hide cursor after completion
+            const cursor = element.nextElementSibling;
+            if (cursor) setTimeout(() => { cursor.style.opacity = "0"; }, 1000);
+        }
+    }
+
+    // 4. Initialize animations on load
+    window.onload = () => {
+        // Handle Main Title
+        const mainEl = document.getElementById("page-typewriter") || document.getElementById("typewriter");
+        if (mainEl) typeEffect(mainEl, fullText, 0, true);
+
+        // Handle Technical Stack (only on About page)
+        const skillsEl = document.getElementById("skills-typewriter");
+        if (skillsEl && page === "about.html") {
+            // Optional: small delay so they don't start at the exact same time
+            setTimeout(() => typeEffect(skillsEl, skillsText, 0, false), 500);
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJESHWARI SARKAR | Contact</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <nav>
+        <div class="logo">Rajeshwari</div>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html" class="terminal-text">Contact</a></li>
+        </ul>
+    </nav>
+
+    <main class="page-content">
+        <h2 class="section-title">
+            <span id="page-typewriter"></span><span class="cursor">|</span>
+        </h2>
+        <p style="text-align: center; color: #8b949e; margin-bottom: 40px;">
+            Currently open to internship opportunities and technical collaborations!
+        </p>
+
+        <div class="contact-container">
+            <div class="contact-grid">
+                <a href="mailto:your-email@example.com" class="contact-card">
+                    <i class="fas fa-envelope"></i>
+                    <h3>Email</h3>
+                    <p>your-email@example.com</p>
+                </a>
+                
+                <a href="https://linkedin.com/in/your-profile" target="_blank" class="contact-card">
+                    <i class="fab fa-linkedin"></i>
+                    <h3>LinkedIn</h3>
+                    <p>Connect with me</p>
+                </a>
+
+                <a href="https://github.com/your-username" target="_blank" class="contact-card">
+                    <i class="fab fa-github"></i>
+                    <h3>GitHub</h3>
+                    <p>Check my repos</p>
+                </a>
+            </div>
+
+            <div class="terminal-box">
+                <p class="terminal-line"><span class="terminal-text">admin@Rajeshwari:~$</span> status --internship</p>
+                <p class="terminal-line">Available for hire: <span class="terminal-text">TRUE</span></p>
+                <p class="terminal-line"><span class="terminal-text">admin@Rajeshwari:~$</span> ping me</p>
+            </div>
+        </div>
+    </main>
+
+    <footer style="text-align: center; padding: 40px; color: #8b949e; font-size: 0.8rem;">
+        <p>&copy; 2026 Rajeshwari Sarkar | B.Tech CSE</p>
+    </footer>
+    <script>
+    // Define what each page should say
+        const pageTitles = {
+            "index.html": "Hello, I'm RAJESHWARI SARKAR",
+            "about.html": "ABOUT ME...",
+            "projects.html": "FEATURED PROJECTS...",
+            "contact.html": "GET IN TOUCH..."
+        };
+
+        // Determine current page filename
+        const path = window.location.pathname;
+        const page = path.split("/").pop() || "index.html";
+        const fullText = pageTitles[page] || "Loading...";
+
+        const typewriterElement = document.getElementById("page-typewriter") || document.getElementById("typewriter");
+        const cursor = document.querySelector(".cursor");
+        let i = 0;
+
+        function typeEffect() {
+            if (i < fullText.length) {
+                let char = fullText.charAt(i);
+                
+                // Terminal styling logic (green text for commands/names)
+                if (page === "index.html" && i >= 11) {
+                    if (i === 11) typewriterElement.innerHTML += '<span class="terminal-text">';
+                    typewriterElement.querySelector('.terminal-text').innerHTML += char;
+                } else if (page !== "index.html" && (char === "." || char === "/" || char === "-")) {
+                    typewriterElement.innerHTML += `<span class="terminal-text">${char}</span>`;
+                } else {
+                    typewriterElement.innerHTML += char;
+                }
+
+                i++;
+                setTimeout(typeEffect, Math.floor(Math.random() * 40) + 60);
+            } else {
+                setTimeout(() => { if(cursor) cursor.style.opacity = "0"; }, 1000);
+            }
+        }
+
+        window.onload = typeEffect;
+    </script>
+</body>
+</html>

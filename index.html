@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAJESHWARI SARKAR | Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <canvas id="canvas" style="position: fixed; top: 0; left: 0; z-index: -2; opacity: 0.35;"></canvas>    <nav>
+        <div class="logo">Rajeshwari</div>
+        <ul>
+            <li><a href="javascript:void(0)" onclick="showHero()">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="contact.html">Contact</a></li>
+        </ul>
+    </nav>
+
+    <header id="hero-section">
+        <div class="hero-container">
+            <div class="hero-photo-area">
+                <div class="designer-profile-container">
+                    <div class="lightning-border"></div>
+                    <div class="designer-profile-core">
+                        <img src="Rajeshwari.png" alt="Rajeshwari Sarkar" class="profile-image">
+                    </div>
+                </div>
+            </div>
+
+            <div class="hero-content">
+                <h1><span id="typewriter"></span><span class="cursor">|</span></h1>
+                <p class="subtitle">B.Tech CSE Student | Developer</p>
+                <div class="badges">
+                    <span>Python|</span><span>C++|</span><span>Java</span>
+                </div>
+                <a href="projects.html" class="btn-primary">View My Projects</a>
+            </div>
+        </div>
+    </header>
+
+    <footer class="minimal-footer">
+        <p>  &copy; 2026 RAJESHWARI SARKAR | B.Tech CSE</p>
+    </footer>
+    <script>
+        /* --- PART 1: TYPEWRITER LOGIC --- */
+        const pageTitles = {
+            "index.html": "Hello, I'm RAJESHWARI SARKAR",
+            "about.html": "ABOUT ME...",
+            "projects.html": "FEATURED PROJECTS...",
+            "contact.html": "ping -c 4 connection_request"
+        };
+        const skillsText = "TECHNICAL STACK...";
+        const path = window.location.pathname;
+        const page = path.split("/").pop() || "index.html";
+        const fullText = pageTitles[page] || "Loading...";
+
+        function typeEffect(element, text, index, isMainTitle) {
+            if (index < text.length) {
+                let char = text.charAt(index);
+                if (isMainTitle && page === "index.html" && index >= 11) {
+                    if (index === 11) element.innerHTML += '<span class="terminal-text">';
+                    element.querySelector('.terminal-text').innerHTML += char;
+                } else if (char === "." || char === "/" || char === "-") {
+                    element.innerHTML += `<span class="terminal-text">${char}</span>`;
+                } else {
+                    element.innerHTML += char;
+                }
+                index++;
+                setTimeout(() => typeEffect(element, text, index, isMainTitle), 70);
+            } else {
+                const cursor = element.nextElementSibling;
+                if (cursor) setTimeout(() => { cursor.style.opacity = "0"; }, 1000);
+            }
+        }
+
+        /* --- PART 2: MATRIX BACKGROUND LOGIC --- */
+        function initMatrix() {
+            const canvas = document.getElementById('canvas');
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789<>/{}[]";
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            const drops = Array(Math.floor(columns)).fill(1);
+
+            function drawMatrix() {
+                ctx.fillStyle = "rgba(13, 17, 23, 0.1)"; // Background fade
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = "#39ff14"; // Terminal Green
+                ctx.font = fontSize + "px monospace";
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
+                    drops[i]++;
+                }
+            }
+            setInterval(drawMatrix, 33);
+        }
+
+        /* --- INITIALIZE BOTH --- */
+        window.onload = () => {
+            // Start Typewriter
+            const mainEl = document.getElementById("page-typewriter") || document.getElementById("typewriter");
+            if (mainEl) typeEffect(mainEl, fullText, 0, true);
+
+            const skillsEl = document.getElementById("skills-typewriter");
+            if (skillsEl && page === "about.html") {
+                setTimeout(() => typeEffect(skillsEl, skillsText, 0, false), 500);
+            }
+
+            // Start Matrix
+            initMatrix();
+        };
+    </script>
+</body>
+</html>
